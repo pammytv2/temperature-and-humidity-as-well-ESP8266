@@ -8,8 +8,6 @@
 ┃ ┃ ┣ 📂components/               
 ┃ ┃ ┃ ┣ 📄HistoricalChart.vue    
 ┃ ┃ ┃ ┗ 📄Server.vue             
-┃ ┃ ┣ 📂view/                     
-┃ ┃ ┃ ┗ 📄TestChart.vue
 ┃ ┃ ┣ 📄App.vue                 
 ┃ ┃ ┗ 📄main.js                  
 ┃ ┣ 📄package.json              
