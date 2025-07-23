@@ -35,7 +35,7 @@ npm install
 # รันแอป
 npm run dev
 
-ex 
+
 
 ![alt text](image.png)
 
