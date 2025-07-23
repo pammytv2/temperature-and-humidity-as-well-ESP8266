@@ -1,31 +1,32 @@
 # temperature-and-humidity-as-well-ESP8266
-โครงสร้างโปรเจกต์
 📦my-project/
 ┣ 📂vue_frontend/                   
-┃ ┣ 📂dist                
-┃ ┣ 📂node_modules    
-┃ ┣📂public
-┃  ┣📂src
-┃  ┃  ┣📂components
-┃  ┃  ┃     ┣ 📄HistoricalChart.vue
-┃  ┃  ┃     ┗ 📄server.vue
-┃  ┃  ┣📄App.vue
-┃  ┃  ┗📄main.js┃
-┃  ┣📂view
-┃  ┗ 📄TestChart.vue
-┣ 📂node_backend/                   
-┃ ┣ 📂routes/              
-┃ ┣ 📂controllers/           
-┃ ┣ 📂models/                
-┃ ┣ 📂middlewares/          
-┃ ┣ 📂services/              
-┃ ┣ 📂config/               
-┃ ┣ 📄server.js      
-┃ ┣ 📄package.json / pyproject.toml
+┃ ┣ 📂dist/                         
+┃ ┣ 📂node_modules/               
+┃ ┣ 📂public/                     
+┃ ┣ 📂src/                         
+┃ ┃ ┣ 📂components/               
+┃ ┃ ┃ ┣ 📄HistoricalChart.vue    
+┃ ┃ ┃ ┗ 📄Server.vue             
+┃ ┃ ┣ 📂view/                     
+┃ ┃ ┃ ┗ 📄TestChart.vue
+┃ ┃ ┣ 📄App.vue                 
+┃ ┃ ┗ 📄main.js                  
+┃ ┣ 📄package.json              
+┃ ┗ 📄vite.config.js / vue.config.js
+┣ 📂node_backend/                 
+┃ ┣ 📂controllers/                
+┃ ┣ 📂models/                     
+┃ ┣ 📂middlewares/               
+┃ ┣ 📂config/                   
+┃ ┣ 📄server.js                  
+┃ ┗ 📄package.json                
+┣ 📄README.md                     
+┗ 📄.gitignore                    
 
 
 # Clone โปรเจกต์
-git clone https://github.com/username/repo-name.git
+git clone https://github.com/pammytv2/temperature-and-humidity-as-well-ESP8266.git
 
 # เข้าโฟลเดอร์โปรเจกต์
 cd repo-name
