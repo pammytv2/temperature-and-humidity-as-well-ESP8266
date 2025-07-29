@@ -18,12 +18,22 @@ getById: (id, callback) => {
   `;
   connection.query(sql, [id], callback);
 },
-
-  create: (data, callback) => {
+create: (data, callback) => {
   const sql = `INSERT INTO sensor_data (temperature, humidity) VALUES (?, ?)`;
   const { temperature, humidity } = data;
-  connection.query(sql, [temperature, humidity], callback);
+
+  connection.query(sql, [temperature, humidity], (err, result) => {
+    if (err) return callback(err);
+
+    // 🔁 ลบข้อมูลที่ไม่ใช่ของวันนี้
+    const deleteOldSql = `DELETE FROM sensor_data WHERE DATE(created_at) < CURDATE()`;
+    connection.query(deleteOldSql, () => {
+      callback(null, result); // ไม่ต้องสนใจ error ของ delete
+    });
+  });
 },
+
+  
 
 
   // อัปเดตข้อมูล
@@ -45,6 +55,9 @@ getById: (id, callback) => {
     `;
     connection.query(sql, [id], callback);
   },
+  
+  
+  
 };
 
 module.exports = Data;

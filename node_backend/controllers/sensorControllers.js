@@ -19,8 +19,13 @@ exports.create = (req, res) => {
   const { temperature, humidity } = req.body;
   Data.create({ temperature, humidity }, (err, result) => {
     if (err) return res.status(500).json(err);
-    res.json({ id: result.insertId, temperature, humidity });
-    res.json({status: 'ok'});
+    
+    res.json({ 
+      message: 'Data saved successfully',
+      id: result.insertId,
+      temperature,
+      humidity 
+    });
   });
 };
 
