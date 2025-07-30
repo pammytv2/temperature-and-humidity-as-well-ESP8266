@@ -32,12 +32,11 @@
         </div>
       </div>
 
-      <div class="chart-container">
-        <h3 class="chart-title">📊 Historical Data</h3>
-        <div class="chart">
-          📈 แสดงกราฟข้อมูลย้อนหลัง 24 ชั่วโมง
-        </div>
-      </div>
+   <div class="chart-container">
+  <h3 class="chart-title">📊 Historical Data</h3>
+  <SensorChart :readings="chartData" />
+</div>
+
 
       <div class="controls">
         <button 
@@ -45,7 +44,7 @@
           @click="refreshData"
           :disabled="isLoading"
         >
-          {{ isLoading ? '⏳ Loading...' : '🔄 Refresh Data' }}
+          {{ isLoading ? '⏳ Loading...' : '🔄 รีเซ็ตข้อมูล' }}
         </button>
         
         <button 
@@ -58,7 +57,7 @@
 
       <div class="last-update">
         <span v-if="lastUpdate">
-          📅 Last Update: {{ lastUpdate }}
+          📅 วันที่ ล่าสุด: {{ lastUpdate }}
         </span>
         <span v-else>
           ⚠️ ไม่มีข้อมูล
@@ -75,8 +74,8 @@
 </template>
 
 <script>
-// ถ้าใช้ axios แยกต่างหาก ให้ import แบบนี้
-// import axios from 'axios'
+import SensorChart from './SensorChart.vue'
+
 
 export default {
   name: 'ESP8266Dashboard',
@@ -84,6 +83,7 @@ export default {
     return {
       temperature: '',
       humidity: '',
+      chartData: [],
       lastUpdate: '',
       updateInterval: null,
       isLoading: false,
@@ -94,6 +94,10 @@ export default {
       baseURL: 'http://localhost:3000/api/sensor'
     }
   },
+  components: {
+    SensorChart
+  },
+  
   computed: {
     statusClass() {
       if (this.error) return 'status-offline'
@@ -131,7 +135,12 @@ export default {
             minute: '2-digit',
             second: '2-digit'
           })
-          this.connectionStatus = 'Connected'
+          this.connectionStatus = 'เชื่อมต่อสำเร็จ'
+          this.chartData = data.map(d => ({
+        time: new Date(d.created_at).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }),
+        temperature: parseFloat(d.temperature),
+        humidity: parseFloat(d.humidity)
+      })).reverse()
         } else {
           this.temperature = ''
           this.humidity = ''
@@ -139,24 +148,6 @@ export default {
           this.connectionStatus = 'No Data'
         }
 
-        // หากต้องการใช้ axios แทน fetch ให้ใช้โค้ดนี้แทน:
-        /*
-        const res = await axios.get(this.baseURL)
-        console.log('API Response:', res.data)
-
-        if (res.data.length > 0) {
-          const latest = res.data[0]
-          this.temperature = latest.temperature
-          this.humidity = latest.humidity
-          this.lastUpdate = new Date(latest.created_at).toLocaleString('th-TH')
-          this.connectionStatus = 'Connected'
-        } else {
-          this.temperature = ''
-          this.humidity = ''
-          this.lastUpdate = 'ไม่มีข้อมูล'
-          this.connectionStatus = 'No Data'
-        }
-        */
 
       } catch (err) {
         console.error('ไม่สามารถโหลดข้อมูลจาก API:', err)
@@ -356,9 +347,12 @@ export default {
 .chart-container {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
-  padding: 20px;
-  margin-top: 30px;
+  padding: 10px;
+  margin-top: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .chart-title {
@@ -398,6 +392,9 @@ export default {
   }
   .hot {
   color: #FF5722; /* สีแสด */
+  
 }
+
+
 }
-</style>  นำ ข้อมูลมาทำกราฟ 
+</style>  
